@@ -1,0 +1,58 @@
+﻿@page "{random}/{id}"
+@model Lab5.Pages.CVDisplayModel
+@{
+}
+
+<style>
+    .cv-container {
+        max-width: 600px;
+        margin: auto;
+        padding: 1em;
+        border: 1px solid #ccc;
+        border-radius: 1em;
+        background: #f9f9f9;
+    }
+
+        .cv-container h1 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        .cv-container p {
+            font-size: 1em;
+            color: #333;
+            margin: 0.5em 0;
+        }
+
+        .cv-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5em;
+            margin-top: 1em;
+        }
+
+        .cv-container .skills {
+            margin: 1em 0;
+        }
+
+            .cv-container .skills p {
+                margin: 0.2em 0;
+            }
+</style>
+
+<div class="cv-container">
+    <h1>CV with id : @Model.CV.Id</h1>
+    <p>Name: @Model.CV.FName @Model.CV.LName</p>
+    <p>Birth Day: @Model.CV.BDay</p>
+    <p>Nationality: @Model.CV.Nationality</p>
+    <div class="skills">
+        <strong>Skills:</strong>
+        @foreach (var skill in Model.CV.Skills)
+        {
+            <p>@skill</p>
+        }
+    </div>
+    <p>Email: @Model.CV.Email</p>
+    <p>Sex: @Model.CV.Sex</p>
+    <img src="@Model.CV.ImageUrl" alt="CV Image" />
+</div>

@@ -1,0 +1,160 @@
+﻿@page
+@model Lab5.Pages.CVFormModel
+@{
+    Random random = new Random();
+    int dynamicNumber = random.Next(1, 100);
+}
+
+<style>
+    form {
+        max-width: 600px;
+        margin: auto;
+        padding: 1em;
+        border: 1px solid #ccc;
+        border-radius: 1em;
+        background: #f9f9f9;
+    }
+    label {
+        margin: .5em 0 .2em;
+        color: #333;
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    select,
+    input[type="radio"] {
+        display: block;
+        width: 100%;
+        padding: .4em;
+        border: 1px solid #ccc;
+        border-radius: .3em;
+        margin-bottom: .5em;
+    }
+    input[type="checkbox"] {
+        margin-right: .5em;
+    }
+    input[type="radio"] {
+        display: inline-block;
+        width: auto;
+    }
+    button {
+        padding: 0.7em;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: .3em;
+        cursor: pointer;
+        font-size: 1em;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .form-group {
+        margin-bottom: 1em;
+    }
+    .form-control {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+    .form-control:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
+    }
+</style>
+
+<form method="post" asp-page-handler="Info" asp-route-random="@dynamicNumber" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label asp-for="ViewModel.FName"></label>
+        <input asp-for="ViewModel.FName" name="FName" />
+        <span asp-validation-for="ViewModel.FName" data-valmsg-for="FName"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ViewModel.LName"></label>
+        <input asp-for="ViewModel.LName" name="LName" />
+        <span asp-validation-for="ViewModel.LName" data-valmsg-for="LName"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ViewModel.BDay"></label>
+        <input asp-for="ViewModel.BDay" name="BDay" />
+        <span asp-validation-for="ViewModel.BDay" data-valmsg-for="BDay"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ViewModel.Nationality"></label>
+        <select asp-for="ViewModel.Nationality" name="Nationality" asp-items="Model.Nationalities" class="form-control">
+            <option value="">Select Nationality</option>
+        </select>
+        <span asp-validation-for="ViewModel.Nationality" data-valmsg-for="Nationality"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ViewModel.Sex"></label>
+        <input type="radio" asp-for="ViewModel.Sex" value="Male" name="Sex" /> Male
+        <input type="radio" asp-for="ViewModel.Sex" value="Female" name="Sex" /> Female
+        <span asp-validation-for="ViewModel.Sex" data-valmsg-for="Sex"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ViewModel.Skills"></label>
+        @foreach (var skill in new List<string> { "Java", "Python", "ASP.NET" })
+        {
+            <div>
+                <input type="checkbox" name="Skills" value="@skill" /> @skill
+            </div>
+        }
+        <span asp-validation-for="ViewModel.Skills" data-valmsg-for="Skills"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ViewModel.Email"></label>
+        <input asp-for="ViewModel.Email" name="Email" />
+        <span asp-validation-for="ViewModel.Email" data-valmsg-for="Email"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ViewModel.EmailConfirm"></label>
+        <input asp-for="ViewModel.EmailConfirm" name="EmailConfirm" />
+        <span asp-validation-for="ViewModel.EmailConfirm" data-valmsg-for="EmailConfirm"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ViewModel.Password"></label>
+        <input asp-for="ViewModel.Password" name="Password" />
+        <span asp-validation-for="ViewModel.Password" data-valmsg-for="Password"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Verification :</label>
+        <input name="num1" asp-for="ViewModel.num1" /> &nbsp; + &nbsp;
+        <input name="num2" asp-for="ViewModel.num2" /> &nbsp;= &nbsp;
+        <input name="sum" asp-for="ViewModel.sum" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ViewModel.Image"></label>
+        <input asp-for="ViewModel.Image" name="Photo" />
+        <span asp-validation-for="ViewModel.Image"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div asp-validation-summary="All"></div>
+
+@section Scripts {
+    @Html.Partial("_ValidationScriptsPartial")
+}
